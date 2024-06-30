@@ -1,0 +1,15 @@
+name: hello-world
+
+# Trigger even for running action!
+# TODO: Can we fine tune this to specific paths?
+# TODO: Can we fine tune this so it only fires if non-markdown files are changed?
+on: push
+
+jobs:
+  hello-world-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+      - run: echo "hello world!"
