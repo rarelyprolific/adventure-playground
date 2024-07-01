@@ -18,9 +18,8 @@ on:
   push:
     paths:
       - "src/**"
-    paths-ignore:
-      # Do not trigger CI for changes to markdown files
-      - "**/*.md"
+      # Do not trigger CI for changes to markdown (*.md) files
+      - "!**/*.md"
 
 jobs:
   hello-world-job:
