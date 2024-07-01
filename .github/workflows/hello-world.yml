@@ -3,14 +3,14 @@ name: hello-world
 # Trigger even for running action!
 # TODO: Can we fine tune this to specific paths?
 # TODO: Can we fine tune this so it only fires if non-markdown files are changed?
-on:
-  push:
-    branches:
-      - "main"
-    paths:
-      - "src"
-    #paths-ignore:
-    #  - '**/*.md'
+on: push
+#  push:
+#    branches:
+#      - "main"
+#    paths:
+#      - "src"
+#paths-ignore:
+#  - '**/*.md'
 
 jobs:
   hello-world-job:
