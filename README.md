@@ -73,3 +73,28 @@ sequenceDiagram
         Website-->API: Refresh search results cache!
     end
 ```
+
+Mindmap:
+
+```mermaid
+mindmap
+    [The problem to solve!]
+
+        Reasonable ideas
+            Slow and steady progress
+            Being methodical
+                Figure out steps
+                Complete steps in order of priority
+
+            Organised tasks
+
+        Out there ideas
+            Crazy theory
+                (Prototyping like a crazy person!)
+
+            Total madness
+                )Hack on it(
+                ))Hack loads((
+
+            Move fast and break stuff
+```
