@@ -33,3 +33,43 @@ flowchart LR
         public-webapi-->database-one
     end
 ```
+
+Sequence diagram:
+
+```mermaid
+sequenceDiagram
+    autonumber
+
+    actor User as Barry
+    participant Website
+    participant API
+    participant Database
+
+    %% Service initialisation
+    critical Ensure database is available at service start
+        API-->Database: Attempt initial connection
+    end
+
+    %% User query
+    User-->Website: Search for text
+
+    Note right of Website: Validate and trim input string
+
+    Website->>API: Make search request
+    API-->>Database: Submit search query parameters
+
+    Note over Database: Run query via stored procedure
+
+    Database-->>API: Return first 50 search results
+    API->>Website: Return results as JSON
+
+    %% Database failure
+    alt Database connection failed
+        Database->>API: Return SQL error message!
+    end
+
+    %% Cache refresh
+    loop Every few seconds
+        Website-->API: Refresh search results cache!
+    end
+```
