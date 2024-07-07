@@ -1,6 +1,14 @@
 # adventure-playground
 
-Just a sandpit repository for playing around with github features and actions!
+Just a sandpit repository for playing around with github and docker!
+
+## TODO: Figure out how to do the following!
+
+1. Build SimpleWebApi using a multistage docker build as a devcontainer. https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers and https://code.visualstudio.com/docs/devcontainers/containers
+2. Run SQL Server as a container. See https://learn.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver16&tabs=cli&pivots=cs1-bash
+3. Run both SimpleWebApi and SQL Server containers in a dev-network using docker compose.
+4. Attempt to call SQL Server from SimpleWebApi to prove database connectivity. Just use https://github.com/DapperLib/Dapper for simplicity! No EF!
+5. Figure out how best to seed a database? Bootstrap a populated database and bake into an image _(fast and ephemeral)_ or persist a database or databases by attaching as/swapping between volumes?
 
 ## Mermaid Diagramming
 
