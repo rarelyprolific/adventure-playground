@@ -23,7 +23,8 @@ namespace SimpleWebApi
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            // TODO: Disabling SSL until I can figure out how to get it working in docker!
+            //app.UseHttpsRedirection();
 
             app.UseAuthorization();
 

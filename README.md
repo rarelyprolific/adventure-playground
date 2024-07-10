@@ -10,6 +10,16 @@ Just a sandpit repository for playing around with github and docker!
 4. Attempt to call SQL Server from SimpleWebApi to prove database connectivity. Just use https://github.com/DapperLib/Dapper for simplicity! No EF!
 5. Figure out how best to seed a database? Bootstrap a populated database and bake into an image _(fast and ephemeral)_ or persist a database or databases by attaching as/swapping between volumes?
 
+## Docker Notes
+
+If you generate a multistage Dockerfile automatically with Visual Studio the paths will be set up to expect the docker build to be run from the same path as the solution file. If you run the docker build yourself, you'll need to point it to the Dockerfile in the project folder as below:
+
+```
+docker build -f SimpleWebApi/Dockerfile -t simplewebapi .
+```
+
+Exposing the ports or an ASP.NET web application for any IP instead of just localhost seems to be done automatically now. But, if you have problems see: https://andrewlock.net/why-isnt-my-aspnetcore-app-in-docker-working/
+
 ## Mermaid Diagramming
 
 Flowcharts can be:
