@@ -30,9 +30,9 @@ services:
       - "8080:8080"
 ```
 
-Exposing the ports or an ASP.NET web application for any IP instead of just localhost seems to be done automatically now. But, if you have problems see: https://andrewlock.net/why-isnt-my-aspnetcore-app-in-docker-working/
+Exposing the ports or an ASP.NET web application for any IP instead of just localhost seems to be done automatically now. But if you have problems see: https://andrewlock.net/why-isnt-my-aspnetcore-app-in-docker-working/
 
-TODO: The Swagger UI doesn't work!? Figure out why!
+By default, the Swagger UI will not be active in an ASP.NET Core application unless the `ASPNETCORE_ENVIRONMENT=Development` environment variable is set.
 
 ## Mermaid Diagramming
 
