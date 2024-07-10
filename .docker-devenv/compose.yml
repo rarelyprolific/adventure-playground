@@ -1,0 +1,7 @@
+services:
+  simplewebapi:
+    build:
+      context: "../src/SimpleWebApi"
+      dockerfile: "SimpleWebApi/Dockerfile"
+    ports:
+      - "8080:8080"

@@ -18,7 +18,21 @@ If you generate a multistage Dockerfile automatically with Visual Studio the pat
 docker build -f SimpleWebApi/Dockerfile -t simplewebapi .
 ```
 
+It looks like this in a docker compose YML file:
+
+```yml
+services:
+  simplewebapi:
+    build:
+      context: "../src/SimpleWebApi"
+      dockerfile: "SimpleWebApi/Dockerfile"
+    ports:
+      - "8080:8080"
+```
+
 Exposing the ports or an ASP.NET web application for any IP instead of just localhost seems to be done automatically now. But, if you have problems see: https://andrewlock.net/why-isnt-my-aspnetcore-app-in-docker-working/
+
+TODO: The Swagger UI doesn't work!? Figure out why!
 
 ## Mermaid Diagramming
 
