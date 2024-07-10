@@ -6,9 +6,16 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      ASPNETCORE_ENVIRONMENT: "Development"
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
-      - ACCEPT_EULA=Y
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD_FILE: /run/secrets/sqlserver-sa-password
+    secrets:
+      - sqlserver-sa-password
+
+secrets:
+  sqlserver-sa-password:
+    file: secrets/sqlserver-sa-password.txt

@@ -34,6 +34,14 @@ Exposing the ports or an ASP.NET web application for any IP instead of just loca
 
 By default, the Swagger UI will not be active in an ASP.NET Core application unless the `ASPNETCORE_ENVIRONMENT=Development` environment variable is set.
 
+Executing a command inside a SQL Server container:
+
+```
+cd /opt/mssql-tools/bin
+
+./sqlcmd -U sa -P [REDACTED!] -q "select name from sys.databases"
+```
+
 ## Mermaid Diagramming
 
 Flowcharts can be:
