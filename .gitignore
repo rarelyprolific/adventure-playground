@@ -397,5 +397,5 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-# Secrets used in the local development environment
-.docker-devenv/secrets
+# Environment variables and secrets used in the local development environment
+.docker-devenv/.env

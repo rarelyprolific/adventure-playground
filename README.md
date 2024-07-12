@@ -42,6 +42,8 @@ cd /opt/mssql-tools/bin
 ./sqlcmd -U sa -P [REDACTED!] -q "select name from sys.databases"
 ```
 
+The `.docker-devenv/compose.yml` file expects the SQL SA password to be set in a `.docker-devenv/.env` file using the key `SQL_SERVER_SA_PASSWORD`.
+
 ## Mermaid Diagramming
 
 Flowcharts can be:
