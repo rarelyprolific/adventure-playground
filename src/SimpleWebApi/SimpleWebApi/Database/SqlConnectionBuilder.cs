@@ -1,5 +1,4 @@
 ﻿using Microsoft.Data.SqlClient;
-using SimpleWebApi.Controllers;
 
 namespace SimpleWebApi.Database
 {
@@ -19,9 +18,9 @@ namespace SimpleWebApi.Database
             this.databaseBuilder = databaseBuilder;
         }
 
-        public SqlConnection Build()
+        public async Task<SqlConnection> BuildAsync()
         {
-            string sqlServerSaPassword = configuration.GetValue<string>("SQL_SERVER_SA_PASSWORD_FILE");
+            string sqlServerSaPassword = configuration.GetValue<string>("SQL_SERVER_SA_PASSWORD");
 
             string connectionString = $"Data Source=sqlserver;Initial Catalog=SimpleDatabase;User id=SA;Password={sqlServerSaPassword};TrustServerCertificate=True;";
 
@@ -34,8 +33,10 @@ namespace SimpleWebApi.Database
             }
             catch(SqlException sqlEx) when (sqlEx.Message.Contains("Cannot open database"))
             {
-                logger.LogWarning("An error occurred whilst attempting to connect to SimpleDatabase!");
-                databaseBuilder.Build();
+                // Absolutely disgusting method to initialise database! Obviously not production ready!! :)
+                logger.LogWarning("SimpleDatabase does not exist.. Attempting to create now!");
+
+                await databaseBuilder.BuildAsync();
             }
             finally
             {

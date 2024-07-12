@@ -21,9 +21,9 @@ namespace SimpleWebApi.Controllers
         }
 
         [HttpGet]
-        public string Get()
+        public async Task<string> Get()
         {
-            using (var connection = sqlConnectionBuilder.Build())
+            using (SqlConnection connection = await sqlConnectionBuilder.BuildAsync())
             {
                 // Create a query that retrieves all books with an author name of "John Smith"    
                 var sql = "SELECT * FROM Books WHERE Author = @authorName";

@@ -2,6 +2,6 @@
 {
     public interface ISimpleDatabaseBuilder
     {
-        void Build();
+        Task BuildAsync();
     }
 }

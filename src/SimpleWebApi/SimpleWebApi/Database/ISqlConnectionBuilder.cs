@@ -4,6 +4,6 @@ namespace SimpleWebApi.Database
 {
     public interface ISqlConnectionBuilder
     {
-        SqlConnection Build();
+        Task<SqlConnection> BuildAsync();
     }
 }
