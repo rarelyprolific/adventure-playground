@@ -9,6 +9,7 @@ Just a sandpit repository for playing around with github and docker!
 3. Run both SimpleWebApi and SQL Server containers in a dev-network using docker compose.
 4. Attempt to call SQL Server from SimpleWebApi to prove database connectivity. Just use https://github.com/DapperLib/Dapper for simplicity! No EF!
 5. Figure out how best to seed a database? Bootstrap a populated database and bake into an image _(fast and ephemeral)_ or persist a database or databases by attaching as/swapping between volumes?
+6. Can you just have SQL Server running in docker compose and then connect to it from SimpleWebApi running in Visual Studio? Can you add to same docker network?
 
 ## Docker Notes
 
@@ -43,6 +44,8 @@ cd /opt/mssql-tools/bin
 ```
 
 The `.docker-devenv/compose.yml` file expects the SQL SA password to be set in a `.docker-devenv/.env` file using the key `SQL_SERVER_SA_PASSWORD`.
+
+If you are having problems adding a container to a network after changing the compose file (old network still exists?), you can use `docker-compose up --force-recreate`
 
 ## Mermaid Diagramming
 

@@ -8,9 +8,18 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       SQL_SERVER_SA_PASSWORD: ${SQL_SERVER_SA_PASSWORD}
+    networks:
+      - devenv-network
 
   sqlserver:
     build: "database"
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: ${SQL_SERVER_SA_PASSWORD}
+    networks:
+      - devenv-network
+
+networks:
+  devenv-network:
+    name: devenv-network
+    driver: bridge
