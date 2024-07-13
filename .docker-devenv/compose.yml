@@ -10,7 +10,7 @@ services:
       SQL_SERVER_SA_PASSWORD: ${SQL_SERVER_SA_PASSWORD}
 
   sqlserver:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    build: "database"
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: ${SQL_SERVER_SA_PASSWORD}
