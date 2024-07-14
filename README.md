@@ -2,18 +2,34 @@
 
 Just a sandpit repository for playing around with github and docker!
 
-## TODO: Figure out how to do the following!
+## Figure out the following!
 
-1. Build SimpleWebApi using a multistage docker build as a devcontainer. https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/introduction-to-dev-containers and https://code.visualstudio.com/docs/devcontainers/containers
-2. Run SQL Server as a container. See https://learn.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver16&tabs=cli&pivots=cs1-bash
-3. Run both SimpleWebApi and SQL Server containers in a dev-network using docker compose.
-4. Attempt to call SQL Server from SimpleWebApi to prove database connectivity. Just use https://github.com/DapperLib/Dapper for simplicity! No EF!
-5. Figure out how best to seed a database? Bootstrap a populated database and bake into an image _(fast and ephemeral)_ or persist a database or databases by attaching as/swapping between volumes?
-6. Can you just have SQL Server running in docker compose and then connect to it from SimpleWebApi running in Visual Studio? Can you add to same docker network?
+- Is it possible to selectively enable/disable services in compose.yml via parameters (or another method)? You may not want to run every service all the time.
 
-## Docker Notes
+- Figure out how to run and use devcontainers! (https://code.visualstudio.com/docs/devcontainers/containers)
 
-If you generate a multistage Dockerfile automatically with Visual Studio the paths will be set up to expect the docker build to be run from the same path as the solution file. If you run the docker build yourself, you'll need to point it to the Dockerfile in the project folder as below:
+- Figure out how to do SSL inside docker compose!
+
+## Docker Compose Example
+
+The `.docker-dev-env/compose.yml` builds the following containers:
+
+- **simplewebapi** - Basic web API which connects to a database.
+- **sqlserver** - Custom SQL Server container which builds a database upon initialisation using a `create-database.sql` script.
+
+All containers are added to a `devenv-network` network. If the `SimpleWebApi.csproj` is run in Visual Studio via Docker it is added to the same network based on the following entry in the project file:
+
+```xml
+<DockerfileRunArguments>--network devenv-network</DockerfileRunArguments>
+```
+
+This allows you to have some services running directly in docker via docker compose and then selectively debug other services in the same network using Visual Studio.
+
+The `.docker-devenv/compose.yml` file expects the SQL SA password to be set in a `.docker-devenv/.env` file using the key `SQL_SERVER_SA_PASSWORD`.
+
+## Docker Tips and Troubleshooting
+
+If you generate a multistage Dockerfile automatically with Visual Studio the paths will be set up to expect the docker build to be run based on the same location as the solution file. If you run the docker build yourself, you'll need to point it to the Dockerfile in the project folder as below:
 
 ```
 docker build -f SimpleWebApi/Dockerfile -t simplewebapi .
@@ -43,103 +59,4 @@ cd /opt/mssql-tools/bin
 ./sqlcmd -U sa -P [REDACTED!] -q "select name from sys.databases"
 ```
 
-The `.docker-devenv/compose.yml` file expects the SQL SA password to be set in a `.docker-devenv/.env` file using the key `SQL_SERVER_SA_PASSWORD`.
-
-If you are having problems adding a container to a network after changing the compose file (old network still exists?), you can use `docker-compose up --force-recreate`
-
-## Mermaid Diagramming
-
-Flowcharts can be:
-
-- TB - Top to bottom
-- TD - Top-down/ same as top to bottom
-- BT - Bottom to top
-- RL - Right to left
-- LR - Left to right
-
-```mermaid
-flowchart LR
-    subgraph frontend["Front-end (public)"]
-        public-website(["The Website"])
-        public-webapi("The API")
-    end
-
-    %% Setup the backend subgraph and contents
-    subgraph backend["Back-end (private)"]
-        public-website-->|"get some data"|private-webapi
-        worker-one
-        worker-two(("Worker Two"))
-    end
-    subgraph data["Data (very private)"]
-        private-webapi-->database-one[(Database One)]
-        worker-one-->database-one
-        public-webapi-.->database-two[(Database Two)]
-        worker-two-->|"process staged data"|database-three[(Database Three)]
-        public-webapi-->database-one
-    end
-```
-
-Sequence diagram:
-
-```mermaid
-sequenceDiagram
-    autonumber
-
-    actor User as Barry
-    participant Website
-    participant API
-    participant Database
-
-    %% Service initialisation
-    critical Ensure database is available at service start
-        API-->Database: Attempt initial connection
-    end
-
-    %% User query
-    User-->Website: Search for text
-
-    Note right of Website: Validate and trim input string
-
-    Website->>API: Make search request
-    API-->>Database: Submit search query parameters
-
-    Note over Database: Run query via stored procedure
-
-    Database-->>API: Return first 50 search results
-    API->>Website: Return results as JSON
-
-    %% Database failure
-    alt Database connection failed
-        Database->>API: Return SQL error message!
-    end
-
-    %% Cache refresh
-    loop Every few seconds
-        Website-->API: Refresh search results cache!
-    end
-```
-
-Mindmap:
-
-```mermaid
-mindmap
-    [The problem to solve!]
-
-        Reasonable ideas
-            Slow and steady progress
-            Being methodical
-                Figure out steps
-                Complete steps in order of priority
-
-            Organised tasks
-
-        Out there ideas
-            Crazy theory
-                (Prototyping like a crazy person!)
-
-            Total madness
-                )Hack on it(
-                ))Hack loads((
-
-            Move fast and break stuff
-```
+If you are having problems adding a container to a network after changing the compose file because the old network still exists, you can use `docker-compose up --force-recreate`. Alternatively, if you run `docker compose down` it should remove the previous network if no containers are using it.
