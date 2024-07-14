@@ -27,6 +27,12 @@ This allows you to have some services running directly in docker via docker comp
 
 The `.docker-devenv/compose.yml` file expects the SQL SA password to be set in a `.docker-devenv/.env` file using the key `SQL_SERVER_SA_PASSWORD`.
 
+If debugging SimpleWebApi in Visual Studio, you'll need to add the database connection string as an environment variables in `launchSettings.json` as so:
+
+```
+DATABASE_CONNECTION_STRING: "Data Source=sqlserver;Initial Catalog=SimpleDatabase;User id=SA;Password=[REDACTED!];TrustServerCertificate=True;"
+```
+
 ## Docker Tips and Troubleshooting
 
 If you generate a multistage Dockerfile automatically with Visual Studio the paths will be set up to expect the docker build to be run based on the same location as the solution file. If you run the docker build yourself, you'll need to point it to the Dockerfile in the project folder as below:
