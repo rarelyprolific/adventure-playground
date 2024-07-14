@@ -4,11 +4,21 @@ Just a sandpit repository for playing around with github and docker!
 
 ## Figure out the following!
 
-- Is it possible to selectively enable/disable services in compose.yml via parameters (or another method)? You may not want to run every service all the time.
-
 - Figure out how to run and use devcontainers! (https://code.visualstudio.com/docs/devcontainers/containers)
 
 - Figure out how to do SSL inside docker compose!
+
+## Selectively running containers
+
+Run all containers (default): `docker compose up`
+
+Run a single container: `docker compose up simplewebapi`
+
+Run multiple containers: `docker compose up simplewebapi sqlserver`
+
+## Known Issues
+
+- The `create-database.sql` script needs to be idempotent! It isn't currently so you'll keep getting additional rows inserted if you re-run `docker compose up`.
 
 ## Docker Compose Example
 
