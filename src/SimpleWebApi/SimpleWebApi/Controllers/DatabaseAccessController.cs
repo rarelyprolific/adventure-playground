@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using SimpleWebApi.Database;
 
 namespace SimpleWebApi.Controllers
 {
@@ -10,28 +9,25 @@ namespace SimpleWebApi.Controllers
     public class DatabaseAccessController : ControllerBase
     {
         private readonly ILogger<DatabaseAccessController> logger;
-        private readonly ISqlConnectionBuilder sqlConnectionBuilder;
+        private readonly IConfiguration configuration;
 
         public DatabaseAccessController(
             ILogger<DatabaseAccessController> logger,
-            ISqlConnectionBuilder sqlConnectionBuilder)
+            IConfiguration configuration)
         {
             this.logger = logger;
-            this.sqlConnectionBuilder = sqlConnectionBuilder;
+            this.configuration = configuration;
         }
 
         [HttpGet]
         public async Task<string> Get()
         {
-            using (SqlConnection connection = await sqlConnectionBuilder.BuildAsync())
+            using (SqlConnection connection = new SqlConnection(configuration.GetValue<string>("DATABASE_CONNECTION_STRING")))
             {
-                // Create a query that retrieves all books with an author name of "John Smith"    
-                var sql = "SELECT * FROM Books WHERE Author = @authorName";
+                string dbName = connection.ExecuteScalar<string>("SELECT DB_NAME(db_id())");
+                int tableRowCount = connection.ExecuteScalar<int>("SELECT COUNT(*) FROM SimpleTodos");
 
-                // Use the Query method to execute the query and return a list of objects    
-                var books = connection.Query<string>(sql, new { authorName = "John Smith" }).ToList();
-
-                return "OK!";
+                return $"The database name is '{dbName}' and there are {tableRowCount} rows in the SimpleTodos table.";
             }
         }
     }
