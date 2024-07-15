@@ -6,7 +6,16 @@ Just a sandpit repository for playing around with github and docker!
 
 - Figure out how to run and use devcontainers! (https://code.visualstudio.com/docs/devcontainers/containers)
 
-- Figure out how to do SSL inside docker compose!
+## Hosting Ports and HTTPS/SSL
+
+ASP NET Core websites automatically host over port 8080 but you can explicitly set the hosting ports via these environment variables:
+
+```
+ENV ASPNETCORE_HTTP_PORTS=8080
+ENV ASPNETCORE_HTTPS_PORTS=8081
+```
+
+To host over HTTPS/SSL during development you need to set up a self-signed certificate using `dotnet devcerts`. See https://github.com/dotnet/dotnet-docker/blob/main/samples/run-aspnetcore-https-development.md for details.
 
 ## Selectively running containers
 
