@@ -1,6 +1,6 @@
 # adventure-playground
 
-Just a sandpit repository for playing around with github and docker!
+Just a sandpit repository for playing around with github and docker! This is a work in progress.
 
 ## Figure out the following!
 
