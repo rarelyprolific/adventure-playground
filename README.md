@@ -2,10 +2,6 @@
 
 Just a sandpit repository for playing around with github and docker! This is a work in progress.
 
-## Figure out the following!
-
-- Figure out how to run and use devcontainers! (https://code.visualstudio.com/docs/devcontainers/containers)
-
 ## Hosting Ports and HTTPS/SSL
 
 ASP NET Core websites automatically host over port 8080 but you can explicitly set the hosting ports via these environment variables:
