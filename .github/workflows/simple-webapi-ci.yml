@@ -25,15 +25,24 @@ jobs:
       - name: Restore dependencies
         run: |
           cd $WORKING_DIR
+          echo "Restoring dependencies in $WORKING_DIR"
           dotnet restore
 
       - name: Build
         run: | 
           cd $WORKING_DIR
+          echo "Building project in $WORKING_DIR"
           dotnet build --configuration Release --no-restore
-
 
       - name: Test
         run: |
           cd $WORKING_DIR
+          echo "Running tests in $WORKING_DIR"
           dotnet test --no-build --verbosity normal
+
+      - name: Build the Docker image
+        run: |
+          cd $WORKING_DIR
+          echo "Building Docker image in $WORKING_DIR"
+          docker build -t simplewebapi:latest .
+          echo "Docker image built successfully"
