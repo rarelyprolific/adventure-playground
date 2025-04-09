@@ -40,9 +40,19 @@ jobs:
           echo "Running tests in $WORKING_DIR"
           dotnet test --no-build --verbosity normal
 
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.GITHUB_ACTOR }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build the Docker image
         run: |
           cd $WORKING_DIR
           echo "Building Docker image in $WORKING_DIR"
-          docker build -f AnotherDockerfile -t simplewebapi:latest .
+          docker build -f AnotherDockerfile -t ghcr.io/${{ github.repository }}/simplewebapi:latest .
           echo "Docker image built successfully"
+
+      - name: Push Docker image to GitHub Container Registry
+        run: docker push ghcr.io/${{ github.repository }}/simplewebapi:latest
