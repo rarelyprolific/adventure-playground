@@ -44,5 +44,5 @@ jobs:
         run: |
           cd $WORKING_DIR
           echo "Building Docker image in $WORKING_DIR"
-          docker build -t simplewebapi:latest .
+          docker build -f AnotherDockerfile -t simplewebapi:latest .
           echo "Docker image built successfully"

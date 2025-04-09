@@ -1,22 +1,29 @@
-# This Dockerfile works with compose.yml in the .docker-devenv folder.
+# This Dockerfile works when running docker build on the commandline from the context of this folder.
 
 #See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
+# Use the official .NET image as the base image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
+# Use the .NET SDK image for the build stage
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["SimpleWebApi/SimpleWebApi.csproj", "SimpleWebApi/"]
-RUN dotnet restore "./SimpleWebApi/SimpleWebApi.csproj"
+
+# Copy the project files and restore dependencies
+COPY ["SimpleWebApi.csproj", "./"]
+RUN dotnet restore "./SimpleWebApi.csproj"
+
+# Copy the entire project and build the application
 COPY . .
-WORKDIR "/src/SimpleWebApi"
+WORKDIR "/src/"
 RUN dotnet build "./SimpleWebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
+# Final stage: copy the built app into the base image
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./SimpleWebApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
