@@ -10,6 +10,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      WORKING_DIR: src/SimpleWebApi/SimpleWebApi
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,9 +24,12 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore
+        working-directory: $WORKING_DIR
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
+        working-directory: $WORKING_DIR
 
       - name: Test
         run: dotnet test --no-build --verbosity normal
+        working-directory: $WORKING_DIR
