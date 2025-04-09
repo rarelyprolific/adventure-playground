@@ -23,13 +23,17 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore
-        working-directory: $WORKING_DIR
+        run: |
+          cd $WORKING_DIR
+          dotnet restore
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
-        working-directory: $WORKING_DIR
+        run: | 
+          cd $WORKING_DIR
+          dotnet build --configuration Release --no-restore
+
 
       - name: Test
-        run: dotnet test --no-build --verbosity normal
-        working-directory: $WORKING_DIR
+        run: |
+          cd $WORKING_DIR
+          dotnet test --no-build --verbosity normal
