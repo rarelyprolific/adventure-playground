@@ -40,7 +40,7 @@ jobs:
         uses: airslate-oss/setup-specmatic@v1
         with:
           specmatic-version: '>=2.11.0'
-      - run: specmatic test --testBaseURL='http://127.0.0.1:5183'
+      - run: specmatic test "open-api-definitions/simple-web-api.yaml" --testBaseURL='http://127.0.0.1:5183'
     #   run: |
     #       curl http://localhost:5183/weatherforecast || echo "Web API is not accessible"
 
