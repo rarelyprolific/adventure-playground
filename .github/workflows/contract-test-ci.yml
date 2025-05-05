@@ -17,15 +17,12 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Run Web API in background
+      - name: Run Web API
         run: |
-          dotnet run --project src/SimpleWebApi/SimpleWebApi/SimpleWebApi.csproj --urls "http://localhost:5183" &
+          dotnet run --project src/SimpleWebApi/SimpleWebApi/SimpleWebApi.csproj --urls "http://localhost:5183"
 
       - name: Wait for Web API to be ready
         run: |
-          sleep 20 # Give the API some time to start
-
-
           for i in {1..30}; do
             curl --silent --fail http://localhost:5183/weatherforecast || true
             if [ $? -eq 0 ]; then
@@ -41,8 +38,7 @@ jobs:
         with:
           specmatic-version: '>=2.11.0'
       - run: specmatic test "open-api-definitions/simple-web-api.yaml" --testBaseURL='http://127.0.0.1:5183'
-    #   run: |
-    #       curl http://localhost:5183/weatherforecast || echo "Web API is not accessible"
 
-    #       # 172.17.0.1 is the default IP address for the Docker host in Linux environments.
-    #       #docker run -v "$(pwd)/open-api-definitions/simple-web-api.yaml:/simple-web-api.yaml" znsio/specmatic test "/simple-web-api.yaml" --testBaseURL=http://172.17.0.1:5183
+# Failed attempt to run via Docker ("connection refused" error).
+# 172.17.0.1 is the default IP address for the Docker host in Linux environments.
+# docker run -v "$(pwd)/open-api-definitions/simple-web-api.yaml:/simple-web-api.yaml" znsio/specmatic test "/simple-web-api.yaml" --testBaseURL=http://172.17.0.1:5183
