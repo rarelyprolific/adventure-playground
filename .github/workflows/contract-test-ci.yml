@@ -9,9 +9,9 @@ jobs:
   contract-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    #   - name: Checkout code
+    #     uses: actions/checkout@v2
 
       - name: Contract test using Specmatic
         run: |
-          docker run -v "$(pwd)/open-api-definitions/simple-web-api-yaml:/simple-web-api-yaml" znsio/specmatic test "/simple-web-api-yaml" --testBaseURL=https://my-json-server.typicode.com/znsio/specmatic-documentation-examples
+          docker run -v "$(pwd)/open-api-definitions/simple-web-api.yaml:/simple-web-api.yaml" znsio/specmatic test "/simple-web-api.yaml" --testBaseURL=https://my-json-server.typicode.com/znsio/specmatic-documentation-examples
