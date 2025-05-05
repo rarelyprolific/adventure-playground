@@ -35,4 +35,5 @@ jobs:
 
       - name: Contract test using Specmatic
         run: |
-          docker run -v "$(pwd)/open-api-definitions/simple-web-api.yaml:/simple-web-api.yaml" znsio/specmatic test "/simple-web-api.yaml" --testBaseURL=http://host.docker.internal:5183
+          # 172.17.0.1 is the default IP address for the Docker host in Linux environments.
+          docker run -v "$(pwd)/open-api-definitions/simple-web-api.yaml:/simple-web-api.yaml" znsio/specmatic test "/simple-web-api.yaml" --testBaseURL=http://172.17.0.1:5183
