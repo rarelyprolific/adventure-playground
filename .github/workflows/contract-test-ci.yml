@@ -12,6 +12,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Lint OpenAPI Spec using Spectral
+        uses: stoplightio/spectral-action@latest
+        with:
+          file_glob: open-api-definitions/*.yaml
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
