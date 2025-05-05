@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: SimpleWebApi!!
+  title: SimpleWebApi!!!!
   description: API for retrieving weather forecasts.
   version: 1.0.0
 paths:
