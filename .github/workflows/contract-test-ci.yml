@@ -19,7 +19,7 @@ jobs:
 
       - name: Run Web API in background
         run: |
-          dotnet run src/SimpleWebApi/SimpleWebApi.csproj --urls "http://localhost:5183" &
+          dotnet run src/SimpleWebApi/SimpleWebApi/SimpleWebApi.csproj --urls "http://localhost:5183" &
 
       - name: Contract test using Specmatic
         run: |
