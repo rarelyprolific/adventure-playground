@@ -17,9 +17,9 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Run Web API
+      - name: Run Web API in background
         run: |
-          dotnet run --project src/SimpleWebApi/SimpleWebApi/SimpleWebApi.csproj --urls "http://localhost:5183"
+          dotnet run --project src/SimpleWebApi/SimpleWebApi/SimpleWebApi.csproj --urls "http://localhost:5183" &
 
       - name: Wait for Web API to be ready
         run: |
