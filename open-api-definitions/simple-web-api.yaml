@@ -1,8 +1,18 @@
 openapi: 3.0.1
 info:
-  title: SimpleWebApi!!!!!!
+  title: SimpleWebApi
   description: API for retrieving weather forecasts.
   version: 1.0.0
+  contact:
+    name: Your Name
+
+servers:
+  - url: http://localhost:5183
+
+tags:
+  - name: WeatherForecast
+    description: Operations related to weather forecasts.
+
 paths:
   /WeatherForecast:
     get:
@@ -20,6 +30,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/WeatherForecast'
+
 components:
   schemas:
     WeatherForecast:
