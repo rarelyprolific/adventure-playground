@@ -1,5 +1,1 @@
 extends: ["spectral:oas"]
-
-rules:
-  rule-name:
-    severity: error
