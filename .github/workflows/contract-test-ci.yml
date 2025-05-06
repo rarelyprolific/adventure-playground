@@ -37,10 +37,10 @@ jobs:
       - run: specmatic test "open-api-definitions/simple-web-api.yaml" --testBaseURL='http://127.0.0.1:5183'
 
       - name: Upload Specmatic HTML Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: specmatic-report
-          path: build/reports/specmatic/html/* # Adjust path as necessary
+          path: build/reports/specmatic/html/
 
 # Failed attempt to run via Docker ("connection refused" error).
 # 172.17.0.1 is the default IP address for the Docker host in Linux environments.
