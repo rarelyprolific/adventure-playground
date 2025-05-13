@@ -4,6 +4,9 @@ on:
   push:
     paths:
       - "open-api-definitions/*.yaml"
+    paths-ignore:
+      - "open-api-definitions/another-bad-api.yaml"
+      - "open-api-definitions/invalid-api.yaml"
 
 jobs:
   contract-test:
