@@ -22,6 +22,8 @@ public class Program
         // Standard web API startup code
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Services.AddControllers();
+
         // Setup logging to be exported via OpenTelemetry
         builder.Logging.AddOpenTelemetry(logging =>
         {
@@ -49,6 +51,7 @@ public class Program
             tracing.AddAspNetCoreInstrumentation();
             tracing.AddHttpClientInstrumentation();
             tracing.AddSource(greeterActivitySource.Name);
+            tracing.AddSource("AnotherApp.Api");
         });
 
         // Export OpenTelemetry data via OTLP, using env vars for the configuration
@@ -60,7 +63,10 @@ public class Program
 
         var app = builder.Build();
 
-        app.MapGet("/", SendGreeting);
+        app.MapControllers();
+
+        // FIXME:Old test! Remove later!
+        // app.MapGet("/", SendGreeting);
 
         app.Run();
     }
