@@ -51,7 +51,7 @@ public class Program
             tracing.AddAspNetCoreInstrumentation();
             tracing.AddHttpClientInstrumentation();
             tracing.AddSource(greeterActivitySource.Name);
-            tracing.AddSource("AnotherApp.Api");
+            tracing.AddSource(OpenTelemetryingWebApi.Telemetry.ActivitySourceName);
         });
 
         // Export OpenTelemetry data via OTLP, using env vars for the configuration

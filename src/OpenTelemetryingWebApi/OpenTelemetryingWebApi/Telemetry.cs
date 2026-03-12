@@ -4,5 +4,7 @@ namespace OpenTelemetryingWebApi;
 
 public static class Telemetry
 {
-    public static readonly ActivitySource ActivitySource = new("AnotherApp.Api");
+    public const string ActivitySourceName = "AnotherApp.Api";
+
+    public static readonly ActivitySource ActivitySource = new(ActivitySourceName);
 }
